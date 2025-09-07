@@ -1,0 +1,57 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thank you!</title>
+<style>
+ body{margin:0; font-family:system-ui, sans-serif; display:grid; place-items:center; min-height:100vh;
+ background:linear-gradient(135deg,#f7f7ff,#fff0f6);}
+ .card{background:#fff; padding:28px 24px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.08);
+ text-align:center; width:min(92vw,520px)}
+ h1{margin:.2em 0 0; font-size:32px}
+ p{margin:.4em 0; line-height:1.6}
+ .tag{display:inline-block; padding:.2em .7em; border-radius:999px; background:#eef; color:#334; font-weight:600}
+ .small{opacity:.7; font-size:12px}
+ button{margin-top:12px; padding:10px 14px; border-radius:10px; border:1px solid #ddd; background:#fff; cursor:pointer}
+ canvas{position:fixed; inset:0; pointer-events:none}
+</style>
+<div class="card">
+ <div class="tag" id="spot">EXPO 2025 WEST GATE</div>
+ <h1>Thank you <span id="name">西ゲート</span>！</h1>
+ <p id="msg">おつかれさまでした！</p>
+ <button id="again">紙吹雪をもう一度 </button>
+ <p class="small" id="stamp"></p>
+</div>
+<canvas id="fx"></canvas>
+<script>
+ const q = new URLSearchParams(location.search);
+ const name = q.get("name") || "西ゲート";
+ const spot = q.get("spot") || "EXPO 2025 WEST GATE";
+ const msg = q.get("msg") || "おつかれさまでした！";
+ document.getElementById("name").textContent = name;
+ document.getElementById("spot").textContent = spot;
+ document.getElementById("msg").textContent = msg;
+
+ // 超軽量「紙吹雪」
+ const cv = document.getElementById('fx'), ctx=cv.getContext('2d');
+ let W,H, P=[]; function resize(){W=cv.width=innerWidth; H=cv.height=innerHeight}
+ addEventListener('resize',resize); resize();
+ function burst(n=120){
+ for(let i=0;i<n;i++){
+ P.push({x:W/2,y:H/3+Math.random()*40,vx:(Math.random()-0.5)*6,vy:-(2+Math.random()*3),
+ sz:4+Math.random()*6, rot:Math.random()*6.28, vr:(Math.random()-0.5)*.2,
+ clr:`hsl(${Math.random()*360},85%,60%)`});
+ }
+ }
+ function step(){
+ ctx.clearRect(0,0,W,H);
+ P.forEach(p=>{
+ p.vy+=0.08; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+ ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+ ctx.fillStyle=p.clr; ctx.fillRect(-p.sz/2,-p.sz/2,p.sz,p.sz); ctx.restore();
+ });
+ P = P.filter(p=>p.y<H+40);
+ requestAnimationFrame(step);
+ }
+ step(); burst();
+ document.getElementById('again').onclick=()=>burst(100);
+</script>
