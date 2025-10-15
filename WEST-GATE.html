@@ -52,7 +52,8 @@ const NORMAL_COUNT = 100;
 const HEART_COUNT = 60;
 const SPARKLE_COUNT = 40;
 const MAX_PARTICLES = 600;
-const FRAME_INTERVAL = 33; // 30fps固定で軽量化
+const FRAME_INTERVAL = 22; // 30fps固定で軽量化
+const SPEED = 1.35;
 
 /* === 生成 === */
 function burst(type="normal", n=NORMAL_COUNT){
@@ -78,7 +79,7 @@ return {
 kind:"confetti", heart,
 x:W/2, y:H/2+Math.random()*60,
 vx:(Math.random()-0.5)*5,
-vy:-(3+Math.random()*4),
+vy:-(4+Math.random()*5),
 sz, rot:Math.random()*6.28, vr, clr
 };
 }
@@ -117,7 +118,10 @@ ctx.clearRect(0,0,W,H);
 
 P.forEach(p=>{
 if(p.kind==="confetti" || p.kind==="sparkle"){
-p.vy+=0.07; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+p.vy+=0.09 * SPEED * SPEED;
+p.x+=p.vx * SPEED; 
+p.y+=p.vy * SPEED; 
+p.rot+=p.vr * SPEED;
 ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
 ctx.fillStyle=p.clr;
 if(p.kind==="confetti" && p.heart) drawHeart(p);
@@ -139,4 +143,3 @@ else{ burst("normal"); }
 };
 burst("normal",NORMAL_COUNT);
 </script>
-
