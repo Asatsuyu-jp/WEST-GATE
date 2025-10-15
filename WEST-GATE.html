@@ -138,9 +138,10 @@ step();
 /* === 抽選ボタン === */
 document.getElementById("again").onclick=()=>{
 const roll=Math.random();
-if(roll<0.05){ burst("heartSparkle"); }
+if(roll<0.07){ burst("heartSparkle"); }
 else{ burst("normal"); }
 };
 burst("normal",NORMAL_COUNT);
 </script>
+
 
