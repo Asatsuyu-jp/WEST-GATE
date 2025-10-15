@@ -77,7 +77,7 @@ const vr = heart ? ((Math.random()-0.5)*0.03) : ((Math.random()-0.5)*0.15);
 return {
 kind:"confetti", heart,
 x:W/2, y:H/2+Math.random()*60,
-vx:(Math.random()-0.5)*7,
+vx:(Math.random()-0.5)*6,
 vy:-(3+Math.random()*4),
 sz, rot:Math.random()*6.28, vr, clr
 };
@@ -90,7 +90,7 @@ const clr=colors[Math.floor(Math.random()*colors.length)];
 return {
 kind:"sparkle",
 x:W/2, y:H/2+Math.random()*60,
-vx:(Math.random()-0.5)*7,
+vx:(Math.random()-0.5)*6,
 vy:-(3+Math.random()*4),
 sz:2.5+Math.random()*2.0,
 clr, rot:Math.random()*6.28, vr:(Math.random()-0.5)*0.05,
