@@ -76,7 +76,7 @@ const sz = heart ? (8+Math.random()*8) : (3+Math.random()*5);
 const vr = heart ? ((Math.random()-0.5)*0.03) : ((Math.random()-0.5)*0.15);
 return {
 kind:"confetti", heart,
-x:W/2, y:H/3+Math.random()*40,
+x:W/2, y:H/2+Math.random()*60,
 vx:(Math.random()-0.5)*7,
 vy:-(3+Math.random()*4),
 sz, rot:Math.random()*6.28, vr, clr
@@ -89,7 +89,7 @@ const colors=["#ffffff","#ffd700"];
 const clr=colors[Math.floor(Math.random()*colors.length)];
 return {
 kind:"sparkle",
-x:W/2, y:H/3+Math.random()*40,
+x:W/2, y:H/2+Math.random()*60,
 vx:(Math.random()-0.5)*7,
 vy:-(3+Math.random()*4),
 sz:2.5+Math.random()*2.0,
@@ -134,7 +134,7 @@ step();
 /* === 抽選ボタン === */
 document.getElementById("again").onclick=()=>{
 const roll=Math.random();
-if(roll<0.10){ burst("heartSparkle"); }
+if(roll<0.05){ burst("heartSparkle"); }
 else{ burst("normal"); }
 };
 burst("normal",NORMAL_COUNT);
